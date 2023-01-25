@@ -10,4 +10,4 @@ head(datos_ags@data)
 table(datos_ags@data$CVE_MUN,datos_ags@data$CVE_LOC)
 
 #Leer info del Censo de Población y Vivienda 2022
-read.csv("P:\\MMOP\\Git\\RESAGEBURB_02CSV20.csv")
+datos_nac_censo<-read.csv("P:\\MMOP\\Git\\RESAGEBURB_02CSV20.csv")
