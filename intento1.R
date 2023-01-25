@@ -7,4 +7,5 @@ plot(datos_jal)
 #dplyr::filter(datos_jal,CVE_MUN="074")
 datos_jal@data
 plot(datos_jal[which(datos_jal$CVE_MUN=="076"),])
+plot(datos_jal[which(datos_jal$CVE_MUN=="074"),])
 
