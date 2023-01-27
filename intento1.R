@@ -2,7 +2,7 @@ install.packages("rgdal")
 library(rgdal)
 library(dplyr)
 setwd("D:\\Users\\Hector de la Torre\\Documents\\Mapas\\")
-datos_ags<-readOGR("01_aguascalientes\\conjunto_de_datos",layer="01a",encoding = "ISO-8859-1" )
+datos_ags<-readOGR("01_aguascalientes\\conjunto_de_datos",layer="proy2_01a",encoding = "ISO-8859-1" )
 datos_ags2<-datos_jal[which(datos_ags$CVE_MUN=="001" & datos_ags$CVE_LOC=="0001" ),]
 
 #Leer info del Censo de Población y Vivienda 2022
@@ -22,3 +22,18 @@ empate<-base::merge(x=datos_ags2@data,y=cate_prop_fem,by.x="CVE_AGEB",by.y="AGEB
 
 datos_ags2@data$PROP_FEM<-empate$PROP_FEM
 datos_ags2@data$FEM<-empate$FEM
+
+library(leaflet)
+leaflet(data=datos_ags2) %>% leafletCRS(crs="L.CRS.EPSG4326")  %>% addTiles()%>% addPolygons(label = ~datos_ags2$CVE_AGEB)
+
+bins <- c(0, 10, 20, 50, 100, 200, 500, 1000, Inf)
+pal <- colorBin("YlOrRd", domain = states$density, bins = bins)
+
+leaflet(states)  %>% addPolygons(
+  fillColor = ~pal(density),
+  weight = 2,
+  opacity = 1,
+  color = "white",
+  dashArray = "3",
+  fillOpacity = 0.7)
+
